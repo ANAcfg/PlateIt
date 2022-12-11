@@ -1,11 +1,36 @@
-import React,{useState, useEffect} from "react";
+import React,{useState, useEffect,useRef,memo} from "react";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 
 import '../styles/App.css';
 
+const ExternalDrag = memo(({event}) =>{
+  let elemRef = useRef(null);
+  useEffect(()=>{
+    let draggable = new Draggable(elemRef.current, {
+      eventData: function (){
+        return{ ...event, create: true};
+      }
+    });
+    return() => draggable.destroy()
+  })
+  return(
+    <div 
+      ref = {elemRef}
+      className="fc-event" 
+      title={event.title}
+      >
+      <div>
+      {event.title}
 
+      </div>
+      
+    </div>
+  )
+
+
+});
 function App() {
   // const events = [{title: "today's event", date: new Date()}];
   // let array  =[
@@ -16,23 +41,8 @@ function App() {
     {title:"event 1", id:"1"},
     {title:"event 2", id: "2"}
   ]);
-  useEffect(()=>{
-    let draggableEl = document.getElementById("draggable");
-    new Draggable(draggableEl, {
-      itemSelector: ".fc-event",
-      eventData: function (eventEl){
-        let title = eventEl.getAttribute("title");
-        let id = eventEl.getAttribute("data");
-        return{
-          title:title,
-          id:id
-        };
-      }
-    })
+
     
-
-
-  });
   return (
     <div className="App">
       <h1 >
@@ -41,26 +51,18 @@ function App() {
       <div>
         <div id = "draggable">
           {recepies.map((event) => (
-            <div 
-              className="fc-event" 
-              title={event.title}
-              data = {event.id}
-              key = {event.id}
-              >
-              {event.title}
-            </div>
-          ))
-          }
+            <ExternalDrag key ={event.id} event = {event}/>
+          ))}
         </div>
 
         <FullCalendar 
-          deFaultView = "timeGridWeek"
           headerToolbar={{
             left: "",
             center: "title",
             right: "timeGridWeek,timeGridDay"
           }}
           plugins={[timeGridPlugin,interactionPlugin]}
+
           />
       </div>
     </div>
