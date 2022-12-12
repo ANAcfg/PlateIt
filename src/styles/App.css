@@ -53,3 +53,10 @@ p#tooltip-text:before {
     display: none;
 }
 
+.searchbar{ 
+   width: '300px';
+   display: 'flex';
+   justify-content: 'center';
+   align-items: 'center';
+}
+
