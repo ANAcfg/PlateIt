@@ -54,9 +54,9 @@ p#tooltip-text:before {
 }
 
 .searchbar{ 
-width: '300px';
-display: 'flex';
-justify-content: 'center';
-align-items: 'center';
+   width: '300px';
+   display: 'flex';
+   justify-content: 'center';
+   align-items: 'center';
 }
 
