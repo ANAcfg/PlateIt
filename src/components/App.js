@@ -6,6 +6,7 @@ import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 
 import '../styles/App.css';
 
+
 const test = [
   { label: 'pleasework', value: 'pleasework' },
 ];
@@ -48,27 +49,8 @@ function App() {
   ]);
 
 
-   window.onload=function(){
+ 
 
-   
-
-    // selecting the elements for which we want to add a tooltip
-    const target = document.getElementById("draggable");
-    const tooltip = document.getElementById("tooltip-text");
-    
-    // change display to 'block' on mouseover
-    target.addEventListener('mouseover', () => {
-      tooltip.style.display = 'block';
-    }, false);
-    
-    // change display to 'none' on mouseleave
-    target.addEventListener('mouseleave', () => {
-      tooltip.style.display = 'none';
-    }, false);
-    
-    }
-
-    // document.querySelector("").addEventListener("click")
 
 
  
@@ -78,10 +60,24 @@ function App() {
     
   return (
     <div className="App">
+
+<div id="myModal" class="modal">
+ 
+<div class="modal-content">
+  <div id="close">&times;</div>
+  <p>Some text in the Modal..</p>
+</div>
+
+</div>
+
+      
       
       <h1 >
        Plate it!
       </h1>
+
+
+    
 
       <div id = "searchbar">
       <Select
@@ -103,6 +99,8 @@ function App() {
 
           ))}
         </div>
+        
+      
     
       
 
@@ -112,17 +110,49 @@ function App() {
             center: "title",
             right: "timeGridWeek,timeGridDay"
           }}
-          selectable
+          
           
           plugins={[timeGridPlugin,interactionPlugin]} 
 
           eventClick ={
-            function(arg){
-            // alert(arg.event.title)
-            alert(arg.event.start)
+            function(args){
+              var modal = document.getElementById("myModal"); 
+              modal.style.display = "block"; 
+              var span = document.getElementById("close"); 
+
+              span.addEventListener("click")
+
+              
+
+          
+              
+
+              
+
+            
+
+              
+
+             
+
+        
+              
+  
+              
+           
+             
+            
+         
+            
             }
+           
+            
 
           }
+
+          
+
+          
 
           
           
@@ -131,6 +161,7 @@ function App() {
           />
       </div>
     </div>
+    
   );
 }
 
