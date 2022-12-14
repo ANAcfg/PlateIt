@@ -1,3 +1,4 @@
+run the server first
 Start the server
 * cd server
 * npm i
