@@ -1,5 +1,6 @@
 Start the server
 * cd server
+* npm i
 * npm run start
 
 start the client
