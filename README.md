@@ -1,6 +1,6 @@
 Start the server
-cd server
-npm run start
+* cd server
+* npm run start
 
 start the client
 cd client
