@@ -6,10 +6,11 @@ import interactionPlugin from '@fullcalendar/interaction';
 import searchOptions from "./searchOptions"
 import nutrientsOptions from "./nutrientsOptions";
 import ExternalDrag from "./externalDrag";
-
+import LoginPage from './Login';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import '../styles/App.css';
 
-function App() {
+function Main() {
 
   const [recipies,setRecipes] = useState([]);
   const [showNutrientsOptions, setNutrientsOptions] = useState(false)
@@ -114,9 +115,6 @@ const handleSubmit1 = (event) =>{
 
     }
 
-
-
-
   return (
     <div className="App">
       <h1 >Plate it!</h1>
@@ -185,14 +183,20 @@ const handleSubmit1 = (event) =>{
             }
 
           }
-
-
-
-
-
          />
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+        <Routes>
+          <Route path="" element={<LoginPage/>} />  
+          <Route path="/Main" element={<Main/>} />                
+        </Routes>
+    </BrowserRouter>
   );
 }
 

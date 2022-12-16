@@ -2,7 +2,7 @@ import express from 'express';
 import fetch from 'node-fetch';
 
 const app = express();
-const port = 3000; 
+const port = 3000;
 app.use(express.json()) 
 
 
@@ -118,6 +118,6 @@ app.put('/searchSimilarRecipes',async (req, res) => {
   res.send(myarray);
  })
 // Start the server on the defined port.
-  app.listen(port, () => {
+app.listen(port, () => {
   console.log('Server started at port:', port);
 })
