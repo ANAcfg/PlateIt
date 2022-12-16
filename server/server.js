@@ -87,10 +87,8 @@ app.put('/searchByRecipesName',async(req, res) => {
  
  })
 app.put('/searchSimilarRecipes',async (req, res) => {
-  //let result = ""
   let search =req.body.recipesName
   let myarray = [];
-  //https://api.spoonacular.com/recipes/{id}/similar?apiKey=d0f1f87614a744d89aec68cef7765d
   const fetchUrl = `https://api.spoonacular.com/recipes/${search}/similar?apiKey=38f636d29ea94887b7cc738ae94d4e0e&number=10`;
   const rawData = await fetch(fetchUrl);
   const data =  await rawData.json();

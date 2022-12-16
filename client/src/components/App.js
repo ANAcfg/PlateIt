@@ -4,15 +4,16 @@ import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from '@fullcalendar/interaction';
 import searchOptions from "./searchOptions"
-import nutrientsOptions from "./nutrientsOptions";
+//import nutrientsOptions from "./nutrientsOptions";
 import ExternalDrag from "./externalDrag";
-
+import LoginPage from './Login';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import '../styles/App.css';
 
-function App() {
+function Main() {
 
   const [recipies,setRecipes] = useState([]);
-  const [showNutrientsOptions, setNutrientsOptions] = useState(false)
+  //const [showNutrientsOptions, setNutrientsOptions] = useState(false)
   const[showRecipesTextBox,setShowRecipesTextBox] = useState(false);
   const[showSimilarTextBox,setSimilarTextBox] = useState(false);
   const recipesNames = useRef(null);
@@ -23,7 +24,7 @@ function App() {
     if(event.value === 'RandomRecipes'){
       setShowRecipesTextBox(false);
       setSimilarTextBox(false);
-      setNutrientsOptions(false);
+      //setNutrientsOptions(false);
       fetch(`/searchRandomRecipe`).then(
         response => response.json()
         ).then(
@@ -32,35 +33,35 @@ function App() {
           }
         )
     }
-    else if(event.value === 'Nutrients'){
-      setShowRecipesTextBox(false);
-      setSimilarTextBox(false);
-      setNutrientsOptions(true);
-    }
+    // else if(event.value === 'Nutrients'){
+    //   setShowRecipesTextBox(false);
+    //   setSimilarTextBox(false);
+    //   setNutrientsOptions(true);
+    // }
     else if(event.value === 'SearchRecipes'){
       setShowRecipesTextBox(true);
       setSimilarTextBox(false);
-      setNutrientsOptions(false);
+      //setNutrientsOptions(false);
     }
     else{
       setShowRecipesTextBox(false);
       setSimilarTextBox(true);
-      setNutrientsOptions(false);
+     // setNutrientsOptions(false);
 
     }
 
 
   }
 
-const handleSubmitNutrients = (event) =>{
-  fetch(`/searchByNutrients${event.label}`).then(
-    response => response.json()
-    ).then(
-      data => {
-        setRecipes(data)
-      }
-    )
- }
+// const handleSubmitNutrients = (event) =>{
+//   fetch(`/searchByNutrients${event.label}`).then(
+//     response => response.json()
+//     ).then(
+//       data => {
+//         setRecipes(data)
+//       }
+//     )
+//  }
 const handleSubmit1 = (event) =>{
   console.log(recipesNames.current.value);
     event.preventDefault();
@@ -128,14 +129,14 @@ const handleSubmit1 = (event) =>{
       />
       </div>
       <div></div>
-      {
+      {/* {
         showNutrientsOptions?<div >
         <Select
           options={nutrientsOptions}
           onChange={handleSubmitNutrients}
         />
         </div>:null
-      }
+      } */}
       {
         showRecipesTextBox?<form >
           <input ref ={recipesNames} type= 'text' id = 'recipesNames' placeholder="Enter a Recipe">
@@ -163,7 +164,6 @@ const handleSubmit1 = (event) =>{
         <div id = "draggable">
           {recipies.map((event) => (
             <ExternalDrag key ={event.id} event = {event}/>
-
           ))}
         </div>
 
@@ -195,5 +195,14 @@ const handleSubmit1 = (event) =>{
     </div>
   );
 }
-
+function App() {
+  return (
+    <BrowserRouter>
+        <Routes>
+          <Route path="" element={<LoginPage/>} />  
+          <Route path="/Main" element={<Main/>} />                
+        </Routes>
+    </BrowserRouter>
+  );
+}
 export default App;
