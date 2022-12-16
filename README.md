@@ -1,4 +1,4 @@
-Start the server
+Start the server.
 * cd server
 * npm run start
 
