@@ -148,7 +148,7 @@ const handleSubmit1 = (event) =>{
       }
       {
         showSimilarTextBox?<form >
-          <input ref ={similarRecipes} type= 'number' id = 'similarNames' placeholder="Enter the  Recipe Id to show similar results">
+          <input ref ={similarRecipes} type= 'number' id = 'similarNames' placeholder="Enter the Recipe ID">
           </input>
           <button onClick={handleSubmit2}>Submit form</button>
        </form>:null
