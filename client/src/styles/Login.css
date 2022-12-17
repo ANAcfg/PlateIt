@@ -5,7 +5,9 @@ form {
     align-items: center;
     display: flex;
     width: center;
-    margin-top: 200px;
+    margin-top: 170px;
+    background-color: rgb(200,200,200);
+    padding: 60px
 }
   
 label{
