@@ -121,7 +121,8 @@ const handleSubmit1 = (event) =>{
   return (
     <div className="App">
       <h1 >Plate it!</h1>
-
+      <div style={{display: "flex", justifyContent: "space-between"}}>
+      <div style={{width: "25%", padding: "20px"}}>
       <div id = "searchbar">
       <Select
         options={searchOptions}
@@ -153,21 +154,21 @@ const handleSubmit1 = (event) =>{
        </form>:null
 
       }
+      </div>
 {/* 
       <div className="hide">I am shown when someone hovers over the div above.</div>
 
       <div className="tooltip-container">
         <p id="tooltip-text">The tooltip text{1}.</p>
       </div> */}
-
+      <div style={{width: "70%", padding: "20px"}}>
       <div>
         <div id = "draggable">
           {recipies.map((event) => (
             <ExternalDrag key ={event.id} event = {event}/>
           ))}
         </div>
-
-
+        
         <FullCalendar
           headerToolbar={{
             left: "",
@@ -183,14 +184,13 @@ const handleSubmit1 = (event) =>{
             // alert(arg.event.title)
             alert(arg.event.start)
             }
-
           }
-
-
-
-
-
+          height = {
+            "auto"
+          }
          />
+         </div>
+         </div>
       </div>
     </div>
   );

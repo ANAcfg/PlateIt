@@ -4,7 +4,7 @@ const nutrientsOptions = [
     { label: 'minProtein', value: 'minProtein'},
     { label: 'maxProtein', value: 'maxProtein'},
     { label: 'minCalories', value: 'minCalories'},
-    { label: 'manCalories', value: 'manCalories'},
+    { label: 'maxCalories', value: 'maxCalories'},
     { label: 'minFat', value: 'minFat'},
     { label: 'maxFat', value: 'maxFat'},
     { label: 'maxCalcium', value: 'maxCalcium'},
