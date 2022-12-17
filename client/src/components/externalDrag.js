@@ -2,10 +2,11 @@ import { Draggable } from '@fullcalendar/interaction';
 import React,{useEffect,useRef,memo} from "react";
 
 const ExternalDrag = memo(({event}) =>{
-    //console.log(event)
+   //console.log(event)
     let elemRef = useRef(null);
     useEffect(()=>{
       let draggable = new Draggable(elemRef.current, {
+        
         eventData: function (){
           return{ ...event, create: true};
         }
@@ -19,8 +20,8 @@ const ExternalDrag = memo(({event}) =>{
         title={event.title}
         >
         <div>
-        {event.title}
-        <img src={event.image}/>
+        <h4>{event.title}</h4>
+        <img src={event.image} alt = "recipePicture"/>
       
         </div>
         

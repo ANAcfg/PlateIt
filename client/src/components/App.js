@@ -1,30 +1,31 @@
 import React,{useState,useRef} from "react";
 import Select from 'react-select';
-import FullCalendar from "@fullcalendar/react";
+import FullCalendar, { removeElement } from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from '@fullcalendar/interaction';
+import interactionPlugin,{EventDragStopArg} from '@fullcalendar/interaction';
 import searchOptions from "./searchOptions"
-//import nutrientsOptions from "./nutrientsOptions";
 import ExternalDrag from "./externalDrag";
 import LoginPage from './Login';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import '../styles/App.css';
 
+import PopBox from "./popBox";
+
 function Main() {
 
   const [recipies,setRecipes] = useState([]);
-  //const [showNutrientsOptions, setNutrientsOptions] = useState(false)
   const[showRecipesTextBox,setShowRecipesTextBox] = useState(false);
   const[showSimilarTextBox,setSimilarTextBox] = useState(false);
+  const[showPopBox,setPopBox] = useState(false);
   const recipesNames = useRef(null);
   const similarRecipes = useRef(null);
+  const [recipieSent,setRecipeSent] = useState([]);
 
 
   const handleChange = (event) =>{
     if(event.value === 'RandomRecipes'){
       setShowRecipesTextBox(false);
       setSimilarTextBox(false);
-      //setNutrientsOptions(false);
       fetch(`/searchRandomRecipe`).then(
         response => response.json()
         ).then(
@@ -33,37 +34,17 @@ function Main() {
           }
         )
     }
-    // else if(event.value === 'Nutrients'){
-    //   setShowRecipesTextBox(false);
-    //   setSimilarTextBox(false);
-    //   setNutrientsOptions(true);
-    // }
     else if(event.value === 'SearchRecipes'){
       setShowRecipesTextBox(true);
       setSimilarTextBox(false);
-      //setNutrientsOptions(false);
     }
     else{
       setShowRecipesTextBox(false);
       setSimilarTextBox(true);
-     // setNutrientsOptions(false);
-
     }
-
-
   }
 
-// const handleSubmitNutrients = (event) =>{
-//   fetch(`/searchByNutrients${event.label}`).then(
-//     response => response.json()
-//     ).then(
-//       data => {
-//         setRecipes(data)
-//       }
-//     )
-//  }
 const handleSubmit1 = (event) =>{
-  console.log(recipesNames.current.value);
     event.preventDefault();
     const requestOptions = {
       method: 'PUT',
@@ -74,7 +55,6 @@ const handleSubmit1 = (event) =>{
       response => response.json()
       ).then(
         data => {
-        //console.log(data)
         setRecipes(data)
         }
       )
@@ -94,30 +74,29 @@ const handleSubmit1 = (event) =>{
         }
       )
    }
+  const handlePopBox =(event) =>{
+    
+    let recipesDetail ={}
+    recipesDetail["id"]=event.event._def.publicId
+    recipesDetail["title"]=event.event._def.title
+    recipesDetail["image"]=event.event._def.extendedProps.image
+    recipesDetail["summary"]=event.event._def.extendedProps.summary
+    recipesDetail["readyInMinutes"]=event.event._def.extendedProps.readyInMinutes
+    recipesDetail["instructions"]=event.event._def.extendedProps.instructions
+    PopBox(recipesDetail,event)
 
-   window.onload=function(){
+    
 
-
-
-    // selecting the elements for which we want to add a tooltip
-    const target = document.getElementById("draggable");
-    const tooltip = document.getElementById("tooltip-text");
-
-    // change display to 'block' on mouseover
-    target.addEventListener('mouseover', () => {
-      tooltip.style.display = 'block';
-    }, false);
-
-    // change display to 'none' on mouseleave
-    target.addEventListener('mouseleave', () => {
-      tooltip.style.display = 'none';
-    }, false);
-
-    }
-
-
-
-
+  }
+  const HandleContent =(event) =>{
+    let titleEvent =event.event._def.title
+    let imgSrc = event.event._def.extendedProps.image
+    return (
+      <div className = "eventBox">
+        <img  src = {imgSrc} alt ="RecipeImage"/>
+      </div>
+    )
+  }
   return (
     <div className="App">
       <h1 >Plate it!</h1>
@@ -129,15 +108,6 @@ const handleSubmit1 = (event) =>{
         onChange={handleChange}
       />
       </div>
-      <div></div>
-      {/* {
-        showNutrientsOptions?<div >
-        <Select
-          options={nutrientsOptions}
-          onChange={handleSubmitNutrients}
-        />
-        </div>:null
-      } */}
       {
         showRecipesTextBox?<form >
           <input ref ={recipesNames} type= 'text' id = 'recipesNames' placeholder="Enter a Recipe">
@@ -154,13 +124,8 @@ const handleSubmit1 = (event) =>{
        </form>:null
 
       }
+     
       </div>
-{/* 
-      <div className="hide">I am shown when someone hovers over the div above.</div>
-
-      <div className="tooltip-container">
-        <p id="tooltip-text">The tooltip text{1}.</p>
-      </div> */}
       <div style={{width: "70%", padding: "20px"}}>
       <div>
         <div id = "draggable">
@@ -175,19 +140,17 @@ const handleSubmit1 = (event) =>{
             center: "",
             right: "timeGridWeek,timeGridDay"
           }}
-          selectable
+          selectable = {true}
+          
 
           plugins={[timeGridPlugin,interactionPlugin]}
 
-          eventClick ={
-            function(arg){
-            // alert(arg.event.title)
-            alert(arg.event.start)
-            }
-          }
+          eventClick ={handlePopBox}
           height = {
             "auto"
           }
+          eventContent={ HandleContent}
+        
          />
          </div>
          </div>
