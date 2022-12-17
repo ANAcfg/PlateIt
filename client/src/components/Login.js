@@ -27,6 +27,8 @@ function LoginPage()
   }
 
   return (
+    <div className="Login">
+    <h1 >Plate it!</h1>
     <form onSubmit={handleLogin}>
       {error && <p className="error">{error}</p>} 
       {/* show error message if there is an error */}
@@ -49,6 +51,7 @@ function LoginPage()
       <button type="submit">Login</button>
       <button type="submit">Sign Up</button>
     </form>
+    </div>
   );
 }
 
