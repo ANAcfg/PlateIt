@@ -79,7 +79,8 @@ const handleSubmit1 = (event) =>{
       )
    }
   const handlePopBox =(event) =>{
-    let str = event.event._instance.range.start.toString()
+    console.log(event)
+    let str = event.event.start.toString()
     let recipesDetail ={}
     recipesDetail["id"]=event.event._def.publicId
     recipesDetail["title"]=event.event._def.title
@@ -127,7 +128,7 @@ const handleSubmit1 = (event) =>{
     recipesDetail["summary"]=event.event._def.extendedProps.summary
     recipesDetail["readyInMinutes"]=event.event._def.extendedProps.readyInMinutes
     recipesDetail["instructions"]=event.event._def.extendedProps.instructions
-    recipesDetail["date"] = event.event._instance.range.start.toString()
+    recipesDetail["date"] = event.event.start.toString()
     const Data = {
       method: 'Post',
       headers: { 'Content-Type': 'application/json' },
