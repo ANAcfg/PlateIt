@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: lightcyan;
 }
 
 .App-logo {
@@ -64,4 +65,47 @@
   background-size: 0 0;
   overflow-y: visible;
 }
+#draggable{
+  background-color: whitesmoke;
+  border-color: black;
+  border-radius: 5px;
+
+  flex-wrap: wrap;
+  display: flex;
+}
+#image-event{
+  float: left;
+  width: 150px;
+  padding: 4px;
+}
+#image-event img{
+  width : 100%;
+}
+#recipe{
+  padding: 5px;
+  border-color: black;
+  border-radius: 5px;
+  font-family: 'Courier New', Courier, monospace;
+
+
+}
+#calendar{
+  background-color: whitesmoke;
+  width: 70%;
+  padding: 20px
+}
+#title{
+  font-family:cursive;
+  font-size: 40px;
+}
+#box2{
+  width: 25%;
+   padding: 20px;
+
+}
+#box3{
+  display: flex;
+  justify-content: space-between;
+}
+
 

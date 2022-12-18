@@ -14,14 +14,14 @@ const ExternalDrag = memo(({event}) =>{
     })
     return(
       <div 
+        id='recipe'
         ref = {elemRef}
         className="fc-event" 
         title={event.title}
         >
-        <div>
-        <h4>{event.title}</h4>
+        <div id='image-event'>
+        <div>{event.title}</div>
         <img src={event.image} 
-        width = "300"
         alt = "recipePicture"
         />
         </div>

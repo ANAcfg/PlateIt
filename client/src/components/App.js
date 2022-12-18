@@ -139,9 +139,9 @@ const handleSubmit1 = (event) =>{
   }
   return (
     <div className="App">
-      <h1 >Plate it!</h1>
-      <div style={{display: "flex", justifyContent: "space-between"}}>
-      <div style={{width: "25%", padding: "20px"}}>
+      <h1 id= "title">Plate it!</h1>
+      <div id ="box3">
+      <div id = "box2">
       <div id = "searchbar">
       <Select
         options={searchOptions}
@@ -173,8 +173,7 @@ const handleSubmit1 = (event) =>{
 
      
       </div>
-      <div style={{width: "70%", padding: "20px"}}>
-      <div>
+      <div id ="calendar">
         
         <FullCalendar
           headerToolbar={{
@@ -196,10 +195,7 @@ const handleSubmit1 = (event) =>{
           eventContent={ HandleContent}
           events = {getInfo}
             
-          
-        
          />
-         </div>
          </div>
       </div>
     </div>

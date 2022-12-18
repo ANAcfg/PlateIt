@@ -73,8 +73,8 @@ function  LoginPage()
 
   return (
     <div className="Login">
-    <font size = "6"><h1 >Plate it!</h1></font>
-    <form>
+    <font id ="loginTitle"><h1 >Plate it!</h1></font>
+    <form id ="loginBox">
       {error && <p className="error">{error}</p>} 
       {/* show error message if there is an error */}
       <label>
