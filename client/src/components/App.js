@@ -5,6 +5,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from '@fullcalendar/interaction';
 import searchOptions from "./searchOptions"
 import ExternalDrag from "./externalDrag";
+import dayGridPlugin from "@fullcalendar/daygrid";
 
 import LoginPage from './Login';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -177,15 +178,15 @@ const handleSubmit1 = (event) =>{
         
         <FullCalendar
           headerToolbar={{
-            left: "",
-            center: "",
-            right: "timeGridWeek,timeGridDay"
+            left: "prev,next",
+            center: "title",
+            right: "timeGridWeek,dayGridMonth"
           }}
           // selectable = {true}
           
           
     
-          plugins={[timeGridPlugin,interactionPlugin]}
+          plugins={[timeGridPlugin,interactionPlugin,dayGridPlugin]}
           eventReceive ={saveData}
 
           eventClick ={handlePopBox}
