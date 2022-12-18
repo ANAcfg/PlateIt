@@ -7,7 +7,7 @@ import searchOptions from "./searchOptions"
 import ExternalDrag from "./externalDrag";
 
 import LoginPage from './Login';
-import { BrowserRouter, Routes, Route, Await } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import '../styles/App.css';
 
@@ -15,13 +15,6 @@ import PopBox from "./popBox";
 
 
 function Main (){
-  
-  const [events,setEvent] =useState([]) 
-    // { 
-    //   title: "today's event", 
-    //   date: new Date('Tue Dec 18 2022 02:00:00 GMT-0500 (Eastern Standard Time)'),
-    //   defId: "70"
-    // }];
 
   const username =localStorage.getItem("username");
   const [recipies,setRecipes] = useState([]);
@@ -86,6 +79,7 @@ const handleSubmit1 = (event) =>{
       )
    }
   const handlePopBox =(event) =>{
+    let str = event.event._instance.range.start.toString()
     let recipesDetail ={}
     recipesDetail["id"]=event.event._def.publicId
     recipesDetail["title"]=event.event._def.title
@@ -93,7 +87,7 @@ const handleSubmit1 = (event) =>{
     recipesDetail["summary"]=event.event._def.extendedProps.summary
     recipesDetail["readyInMinutes"]=event.event._def.extendedProps.readyInMinutes
     recipesDetail["instructions"]=event.event._def.extendedProps.instructions
-    recipesDetail["startStr"] = event.event.startStr
+    recipesDetail["date"] = str
     PopBox(recipesDetail,event)
 
     
@@ -115,16 +109,14 @@ const handleSubmit1 = (event) =>{
       data= JSON.parse(data);
       return data
     }
-    let abc = await fetchData()
-    let [cdf] = abc
-    cdf.date = new Date('Tue Dec 18 2022 02:00:00 GMT-0500 (Eastern Standard Time)')
-    // console.log([cdf],"result")
-//  console.log([{ 
-//   title: "today's event", 
-//   date: new Date('Tue Dec 18 2022 02:00:00 GMT-0500 (Eastern Standard Time)'),
-//   defId: "70"
-// }])
- return ([cdf])
+    let rawData = await fetchData()
+  
+    for(let i =0;i< rawData.length; i++){
+      let holderDate = rawData[i].date
+      rawData[i].date= new Date(holderDate)
+
+    }
+ return (rawData)
   }
   const saveData = (event)=>{
    
@@ -135,7 +127,7 @@ const handleSubmit1 = (event) =>{
     recipesDetail["summary"]=event.event._def.extendedProps.summary
     recipesDetail["readyInMinutes"]=event.event._def.extendedProps.readyInMinutes
     recipesDetail["instructions"]=event.event._def.extendedProps.instructions
-    recipesDetail["startStr"] = event.event.startStr
+    recipesDetail["date"] = event.event._instance.range.start.toString()
     const Data = {
       method: 'Post',
       headers: { 'Content-Type': 'application/json' },
@@ -199,7 +191,7 @@ const handleSubmit1 = (event) =>{
             "auto"
           }
           eventContent={ HandleContent}
-          events = {getInfo()}
+          events = {getInfo}
             
           
         

@@ -3,7 +3,6 @@ import '../styles/PopBox.css';
 
 const PopBox = (data,event)=>{
     const username =localStorage.getItem("username");
-    console.log(data)
     Alert.fire({
       confirmButtonText: "Remove Event",
       showCancelButton: true,
@@ -17,7 +16,7 @@ const PopBox = (data,event)=>{
             const request = {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({id: data["id"], user:username,startStr: data["startStr"]})
+                body: JSON.stringify({id: data["id"], user:username,date: data["date"]})
             };
               fetch(`/delete-data`,request)
             event.event.remove();

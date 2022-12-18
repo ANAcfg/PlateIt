@@ -44,7 +44,7 @@ function  LoginPage()
     event.preventDefault();
     let isError = false
     let response = await fetch(`/findUser/${username}`)
-    let responseJson = await response.json().catch(error => {
+    await response.json().catch(error => {
       isError = true;
     });
     if(isError){
