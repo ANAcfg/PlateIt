@@ -79,7 +79,6 @@ const handleSubmit1 = (event) =>{
       )
    }
   const handlePopBox =(event) =>{
-    console.log(event)
     let str = event.event.start.toString()
     let recipesDetail ={}
     recipesDetail["id"]=event.event._def.publicId
