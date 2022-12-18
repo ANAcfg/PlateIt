@@ -1,23 +1,95 @@
 import express from 'express';
+import { MongoClient, ObjectId, ServerApiVersion } from 'mongodb';
 import fetch from 'node-fetch';
 
 const app = express();
 const port = 3000; 
+
+
+const uri = "mongodb+srv://PlateIt:Letgetana@cluster0.vhhnxc5.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
 app.use(express.json()) 
+await client.connect();
 
 
 
-// /*
-// * GET Requests
-// * */
-// this requests is not really needed, i may take it away  later
+
  function checkRequest(data){
   if(data["status"]!= undefined){
     return false
   }
   return true
  }
- app.get('/searchRandomRecipe',async (req, res) => {
+
+app.post('/makeNewUser',async (req,res)=>{
+  const matchDocument = {
+    username: req.body.username,
+    password:req.body.password
+
+  }
+  const result = await client.db('PlateIt').collection('Users').insertOne(matchDocument)
+  const newCollection = await client.db('PlateIt').createCollection(req.body.username)
+  res.send()
+
+});
+app.get('/getUser/:id/:password',async(req,res)=>{
+  const user = req.params;
+  console.log(user.password)
+  const result = await client.db('PlateIt').collection('Users').findOne({username: user.id, password:user.password});
+  res.send(result)
+})
+app.get('/findUser/:id',async(req,res)=>{
+  const user = req.params;
+  const result = await client.db('PlateIt').collection('Users').findOne({"username": user.id});
+  res.send(result)
+})
+app.get('/getAllRecipes/:user',async(req,res)=>{
+  let myarray =[]
+  const result = await client.db("PlateIt").collection(req.params.user).find({}).toArray()
+  console.log(result.length);
+  for(let i = 0; i<result.length;i++){
+    myarray.push({
+      title: result[i].title,
+      date: 'Tue Dec 18 2022 02:00:00 GMT-0500 (Eastern Standard Time)'
+    }
+      )
+  }
+  console.log(myarray)
+  res.send(myarray)
+
+
+})
+app.get('/db/findOne/:db/:collection', async (req, res) => {
+  const { db, collection } = req.params;
+  const result = await client.db(db).collection(collection).findOne({});
+  res.send(result);
+});
+app.post('/postRecipes',async(req,res) =>{
+  // console.log(req.body.recipesInfo)
+  let ana = req.body.recipesId;
+  const matchDocument = {
+    id: req.body.recipesInfo.id,
+    image:req.body.recipesInfo.image,
+    summary: req.body.recipesInfo.summary,
+    instructions: req.body.recipesInfo.instructions,
+    readyInMinutes: req.body.recipesInfo.readyInMinutes,
+    startStr:req.body.recipesInfo.startStr,
+    title:req.body.recipesInfo.title
+
+  }
+  const result = await client.db('PlateIt').collection(req.body.user).insertOne(matchDocument)
+  res.send()
+
+})
+app.delete('/delete-data',async(req,res)=>{
+  let id = req.body.id
+  const result = await client.db('PlateIt').collection(req.body.user).deleteOne({id:id, startStr:req.body.startStr})
+  console.log(`${result.deletedCount} document(s) was/were deleted.`);
+  res.send(`${result.deletedCount} document(s) was/were deleted.`)
+
+})
+app.get('/searchRandomRecipe',async (req, res) => {
  let myarray = [];
 //  const fetchUrl = "https://api.spoonacular.com/recipes/random?apiKey=38f636d29ea94887b7cc738ae94d4e0e&number=10";
 //  const rawData = await fetch(fetchUrl);

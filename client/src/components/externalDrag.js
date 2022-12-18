@@ -2,7 +2,6 @@ import { Draggable } from '@fullcalendar/interaction';
 import React,{useEffect,useRef,memo} from "react";
 
 const ExternalDrag = memo(({event}) =>{
-   //console.log(event)
     let elemRef = useRef(null);
     useEffect(()=>{
       let draggable = new Draggable(elemRef.current, {

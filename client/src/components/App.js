@@ -1,25 +1,36 @@
 import React,{useState,useRef} from "react";
 import Select from 'react-select';
-import FullCalendar, { removeElement } from "@fullcalendar/react";
+import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin,{EventDragStopArg} from '@fullcalendar/interaction';
+import interactionPlugin from '@fullcalendar/interaction';
 import searchOptions from "./searchOptions"
 import ExternalDrag from "./externalDrag";
+
 import LoginPage from './Login';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Await } from "react-router-dom";
+
 import '../styles/App.css';
 
 import PopBox from "./popBox";
 
-function Main() {
 
+function Main (){
+  
+  const [events,setEvent] =useState([]) 
+    // { 
+    //   title: "today's event", 
+    //   date: new Date('Tue Dec 18 2022 02:00:00 GMT-0500 (Eastern Standard Time)'),
+    //   defId: "70"
+    // }];
+
+  const username =localStorage.getItem("username");
   const [recipies,setRecipes] = useState([]);
+  
   const[showRecipesTextBox,setShowRecipesTextBox] = useState(false);
   const[showSimilarTextBox,setSimilarTextBox] = useState(false);
-  const[showPopBox,setPopBox] = useState(false);
   const recipesNames = useRef(null);
   const similarRecipes = useRef(null);
-  const [recipieSent,setRecipeSent] = useState([]);
+  
 
 
   const handleChange = (event) =>{
@@ -67,7 +78,7 @@ const handleSubmit1 = (event) =>{
       body: JSON.stringify({ recipesName:  similarRecipes.current.value })
   };
     fetch(`/searchSimilarRecipes`,requestOptions).then(
-      response => response.json()
+      response => {response.json()}
       ).then(
         data => {
           setRecipes(data)
@@ -75,7 +86,6 @@ const handleSubmit1 = (event) =>{
       )
    }
   const handlePopBox =(event) =>{
-    
     let recipesDetail ={}
     recipesDetail["id"]=event.event._def.publicId
     recipesDetail["title"]=event.event._def.title
@@ -83,19 +93,56 @@ const handleSubmit1 = (event) =>{
     recipesDetail["summary"]=event.event._def.extendedProps.summary
     recipesDetail["readyInMinutes"]=event.event._def.extendedProps.readyInMinutes
     recipesDetail["instructions"]=event.event._def.extendedProps.instructions
+    recipesDetail["startStr"] = event.event.startStr
     PopBox(recipesDetail,event)
 
     
 
   }
   const HandleContent =(event) =>{
-    let titleEvent =event.event._def.title
     let imgSrc = event.event._def.extendedProps.image
     return (
       <div className = "eventBox">
         <img  src = {imgSrc} alt ="RecipeImage"/>
       </div>
     )
+  }
+  async function getInfo  (event){  
+    async function fetchData(){
+      let response = await fetch(`/getAllRecipes/${username}`);
+      let data = await response.json();
+      data = JSON.stringify(data);
+      data= JSON.parse(data);
+      return data
+    }
+    let abc = await fetchData()
+    let [cdf] = abc
+    cdf.date = new Date('Tue Dec 18 2022 02:00:00 GMT-0500 (Eastern Standard Time)')
+    // console.log([cdf],"result")
+//  console.log([{ 
+//   title: "today's event", 
+//   date: new Date('Tue Dec 18 2022 02:00:00 GMT-0500 (Eastern Standard Time)'),
+//   defId: "70"
+// }])
+ return ([cdf])
+  }
+  const saveData = (event)=>{
+   
+    let recipesDetail ={}
+    recipesDetail["id"]=event.event._def.publicId
+    recipesDetail["title"]=event.event._def.title
+    recipesDetail["image"]=event.event._def.extendedProps.image
+    recipesDetail["summary"]=event.event._def.extendedProps.summary
+    recipesDetail["readyInMinutes"]=event.event._def.extendedProps.readyInMinutes
+    recipesDetail["instructions"]=event.event._def.extendedProps.instructions
+    recipesDetail["startStr"] = event.event.startStr
+    const Data = {
+      method: 'Post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ recipesInfo:  recipesDetail,user:username })
+  };
+    fetch(`/postRecipes`,Data)
+
   }
   return (
     <div className="App">
@@ -140,16 +187,21 @@ const handleSubmit1 = (event) =>{
             center: "",
             right: "timeGridWeek,timeGridDay"
           }}
-          selectable = {true}
+          // selectable = {true}
           
-
+          
+    
           plugins={[timeGridPlugin,interactionPlugin]}
+          eventReceive ={saveData}
 
           eventClick ={handlePopBox}
           height = {
             "auto"
           }
           eventContent={ HandleContent}
+          events = {getInfo()}
+            
+          
         
          />
          </div>

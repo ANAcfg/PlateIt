@@ -1,9 +1,9 @@
-import React from 'react'
 import Alert from "sweetalert2";
 import '../styles/PopBox.css';
 
 const PopBox = (data,event)=>{
-    console.log(event)
+    const username =localStorage.getItem("username");
+    console.log(data)
     Alert.fire({
       confirmButtonText: "Remove Event",
       showCancelButton: true,
@@ -14,6 +14,12 @@ const PopBox = (data,event)=>{
                  ${data["summary"]} </div>`,         
     }).then ((result)=>{
         if (result.value) {
+            const request = {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({id: data["id"], user:username,startStr: data["startStr"]})
+            };
+              fetch(`/delete-data`,request)
             event.event.remove();
         }
     })
