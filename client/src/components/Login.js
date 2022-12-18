@@ -42,6 +42,17 @@ function  LoginPage()
   }
   async function handleSignUp(event){
     event.preventDefault();
+    if(username === '' && password === '')
+    {
+      setError('Error: Username and Password cannot be empty'); // set error message
+      return;
+    }else if(username === ''){
+      setError('Error: Username cannot be empty'); // set error message
+      return;
+    }else if(password === ''){
+      setError('Error: Password cannot be empty'); // set error message
+      return;
+    }
     let isError = false
     let response = await fetch(`/findUser/${username}`)
     await response.json().catch(error => {
@@ -62,7 +73,7 @@ function  LoginPage()
 
   return (
     <div className="Login">
-    <h1 >Plate it!</h1>
+    <font size = "6"><h1 >Plate it!</h1></font>
     <form>
       {error && <p className="error">{error}</p>} 
       {/* show error message if there is an error */}

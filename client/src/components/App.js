@@ -163,15 +163,17 @@ const handleSubmit1 = (event) =>{
        </form>:null
 
       }
-     
-      </div>
-      <div style={{width: "70%", padding: "20px"}}>
-      <div>
-        <div id = "draggable">
+
+      <div id = "draggable">
           {recipies.map((event) => (
             <ExternalDrag key ={event.id} event = {event}/>
           ))}
         </div>
+
+     
+      </div>
+      <div style={{width: "70%", padding: "20px"}}>
+      <div>
         
         <FullCalendar
           headerToolbar={{

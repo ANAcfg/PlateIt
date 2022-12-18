@@ -20,8 +20,10 @@ const ExternalDrag = memo(({event}) =>{
         >
         <div>
         <h4>{event.title}</h4>
-        <img src={event.image} alt = "recipePicture"/>
-      
+        <img src={event.image} 
+        wodth = "300"
+        alt = "recipePicture"
+        />
         </div>
         
       </div>
