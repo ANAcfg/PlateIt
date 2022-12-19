@@ -10,6 +10,7 @@ const PopBox = (data,event)=>{
       title: `<strong>${data["title"]}</strong>`,
       imageUrl: data["image"],
       html: `<div className='modal-body'> 
+                <p>Id:${data["id"]}</p>
                  ${data["summary"]} </div>`,         
     }).then ((result)=>{
         if (result.value) {

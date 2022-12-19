@@ -37,7 +37,7 @@ function Main (){
           data => {
             setRecipes(data)
           }
-        )
+        ).catch(err =>{console.log(err)})
     }
     else if(event.value === 'SearchRecipes'){
       setShowRecipesTextBox(true);
@@ -62,7 +62,7 @@ const handleSubmit1 = (event) =>{
         data => {
         setRecipes(data)
         }
-      )
+      ).catch(err =>{console.log(err)})
    }
   const handleSubmit2 = (event) =>{
     event.preventDefault();
@@ -72,12 +72,12 @@ const handleSubmit1 = (event) =>{
       body: JSON.stringify({ recipesName:  similarRecipes.current.value })
   };
     fetch(`/searchSimilarRecipes`,requestOptions).then(
-      response => {response.json()}
+      response => response.json()
       ).then(
         data => {
           setRecipes(data)
         }
-      )
+      ).catch(err =>{console.log(err)});
    }
   const handlePopBox =(event) =>{
     let str = event.event.start.toString()

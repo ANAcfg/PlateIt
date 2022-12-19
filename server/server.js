@@ -93,7 +93,7 @@ app.delete('/delete-data',async(req,res)=>{
 })
 app.get('/searchRandomRecipe',async (req, res) => {
  let myarray = [];
- const fetchUrl = "https://api.spoonacular.com/recipes/random?apiKey=38f636d29ea94887b7cc738ae94d4e0e&number=10";
+ const fetchUrl = "https://api.spoonacular.com/recipes/random?apiKey=d0f1f87614a744d89aec68cef7765d8a&number=10";
  const rawData = await fetch(fetchUrl);
  const data =  await rawData.json();
  if(checkRequest(data)){
@@ -114,7 +114,7 @@ app.get('/searchRandomRecipe',async (req, res) => {
 app.put('/searchByRecipesName',async(req, res) => {
    let search =req.body.recipesName
    let myarray =[]
-   const fetchUrl =`https://api.spoonacular.com/recipes/autocomplete?apiKey=38f636d29ea94887b7cc738ae94d4e0e&number=10&query=${search}`
+   const fetchUrl =`https://api.spoonacular.com/recipes/autocomplete?apiKey=d0f1f87614a744d89aec68cef7765d8a&number=10&query=${search}`
    const rawData = await fetch(fetchUrl);
    const data =  await rawData.json();
    let ids = "";
@@ -129,7 +129,7 @@ app.put('/searchByRecipesName',async(req, res) => {
   else{
     res.send(myarray);
   }
- const fetchUrl2 = `https://api.spoonacular.com/recipes/informationBulk?apiKey=38f636d29ea94887b7cc738ae94d4e0e&ids=${ids}`;
+ const fetchUrl2 = `https://api.spoonacular.com/recipes/informationBulk?apiKey=d0f1f87614a744d89aec68cef7765d8a&ids=${ids}`;
   const rawData2 = await fetch(fetchUrl2);
   const data2 =  await rawData2.json();
   if(checkRequest(data2)){
@@ -150,11 +150,11 @@ app.put('/searchByRecipesName',async(req, res) => {
 app.put('/searchSimilarRecipes',async (req, res) => {
   let search =req.body.recipesName
   let myarray = [];
-  const fetchUrl = `https://api.spoonacular.com/recipes/${search}/similar?apiKey=38f636d29ea94887b7cc738ae94d4e0e&number=10`;
+  let ids = "";
+  const fetchUrl = `https://api.spoonacular.com/recipes/${search}/similar?apiKey=d0f1f87614a744d89aec68cef7765d8a&number=10`;
   const rawData = await fetch(fetchUrl);
   const data =  await rawData.json();
   if(checkRequest(data)){
-    let ids = "";
     for(let i =0; i < data.length; i++){
       ids += data[i].id
       if(i !=data.length-1){
@@ -165,9 +165,11 @@ app.put('/searchSimilarRecipes',async (req, res) => {
  else{
   res.send(myarray);
  }
- const fetchUrl2 = `https://api.spoonacular.com/recipes/informationBulk?38f636d29ea94887b7cc738ae94d4e0e&ids=${ids}`;
+ 
+ const fetchUrl2 = `https://api.spoonacular.com/recipes/informationBulk?apiKey=d0f1f87614a744d89aec68cef7765d8a&ids=${ids}`;
   const rawData2 = await fetch(fetchUrl2);
   const data2 =  await rawData2.json();
+  console.log(data2)
   if(checkRequest(data2)){
     for(let i =0; i < data2.length; i++){
       myarray.push({
