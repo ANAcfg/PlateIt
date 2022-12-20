@@ -11,7 +11,11 @@ Start the client
 
 Roles of Team
 
-Hasibur: Style css and Html
+Hasibur: Style css and Html for all the project
 
-Sara: login.js implemementation
+Sara: login.js implemementation with react
+ 
+Raymond: css and search bar fronted with react
+
+Ana: BackEnd- expess.js , MongoDb and data persistance, Drag effect, popScreen, FullCalender implementation
 
