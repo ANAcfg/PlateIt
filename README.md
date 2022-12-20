@@ -15,7 +15,7 @@ Hasibur: Style css and Html for all the project, prototype hover and prototype e
 
 Sara: login.js implemementation with react and error checking
  
-Raymond: css and search bar fronted with react
+Raymond: additional css styling for the background and other elements, html edits and select dropdownbar frontend with react
 
 Ana: BackEnd- expess.js(api implemetation) , MongoDb and data persistance, Drag effect, popScreen, popscreen delete backend FullCalender implementation. recipe information/picture on calender. Login save user information into the database
 
