@@ -13,7 +13,7 @@ Roles of Team
 
 Hasibur: Style css and Html for all the project
 
-Sara: login.js implemementation with react
+Sara: login.js implemementation with react and error checking
  
 Raymond: css and search bar fronted with react
 
