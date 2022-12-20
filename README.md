@@ -11,7 +11,7 @@ Start the client
 
 Roles of Team
 
-Hasibur: Style css and Html for all the project, prototype hover and prototype eventclick. 
+Hasibur: Style css and Html for all the project, prototype hover and prototype eventclick, and popScreen. 
 
 Sara: login.js implemementation with react and error checking
  
