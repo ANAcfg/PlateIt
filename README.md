@@ -17,5 +17,5 @@ Sara: login.js implemementation with react and error checking
  
 Raymond: css and search bar fronted with react
 
-Ana: BackEnd- expess.js , MongoDb and data persistance, Drag effect, popScreen, FullCalender implementation
+Ana: BackEnd- expess.js(api implemetation) , MongoDb and data persistance, Drag effect, popScreen, FullCalender implementation. recipe information/picture on calender
 
