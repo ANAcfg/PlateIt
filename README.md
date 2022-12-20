@@ -17,5 +17,5 @@ Sara: login.js and login.js implemementation with react and error checking, work
  
 Raymond: additional css styling for the background and other elements, html edits and select dropdownbar frontend with react
 
-Ana: BackEnd- expess.js(api implemetation) , MongoDb and data persistance, Drag effect, popScreen, popscreen delete backend FullCalender implementation. recipe information/picture on calender. Login save user information into the database
+Ana: BackEnd- expess.js(api implemetation, get,delete and post information to the MongoBv) , MongoDb set up (had a collection of all the users and a collection for each user to save the recipes), data persistance - when refresh the recipes were retrive from the database, Drag effect, popScreen implemntation, popscreen delete backend- deleted recipe from the dayabase ,FullCalender implementation. recipe information/picture on calender. Login save user information into the database. app.js implementatuipn. saved recipes into the database when the recipes drop into the calendar. When a user signs up, the information is saved in the collection users and a new collection is made for the user. css for recipe results(2 recipes per row). Hidden property of the search bar.
 
