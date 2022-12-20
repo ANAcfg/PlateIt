@@ -13,7 +13,7 @@ Roles of Team
 
 Hasibur: Style css and Html for all the project, prototype hover and prototype eventclick, and popScreen. 
 
-Sara: login.js implemementation with react and error checking
+Sara: login.js and login.js implemementation with react and error checking, worked on layout of main page
  
 Raymond: additional css styling for the background and other elements, html edits and select dropdownbar frontend with react
 
